@@ -38,7 +38,7 @@ def from_binary(number: str) -> int:
 
 def to_binary(number: int) -> str:
     if number == 0:
-        return 0
+        return "0"
     expo = 0
     powers = []
     binary_reversed = []
@@ -58,6 +58,30 @@ def to_binary(number: int) -> str:
     binary_code = [1 if binary_reversed[i]>0 else 0  for i in range(len(binary_reversed))]
 
     return "".join(list(map(str,binary_code)))
+
+
+# Another way
+def to_binary(number: int) -> str:
+    if number == 0:
+        return "0"
+
+    powers = Stack([])
+    power = 1
+
+    # Push powers in ascending order.
+    while power <= number:
+        powers.push(power)
+        power *= 2
+
+    binary_digits = []
+
+    # Pop powers in descending order.
+    while not powers.is_empty():
+        power = powers.pop()
+        digit, number = divmod(number, power)
+        binary_digits.append(str(digit))
+
+    return "".join(binary_digits)
 
 
 if __name__ == "__main__":

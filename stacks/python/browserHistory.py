@@ -2,7 +2,7 @@ from stack import Stack
 
 class BrowserHistory:
 
-    def __init__(self, back_stack: Stack, forward_stack: Stack):
+    def __init__(self, back_stack: Stack = Stack([]), forward_stack: Stack = Stack([])):
         self.back_stack = back_stack
         self.forward_stack = forward_stack
 
@@ -13,8 +13,8 @@ class BrowserHistory:
     def visit(self, page):
         self.back_stack.push(self.current_page)
         self.current_page = page
-        while not forward_stack.is_empty():
-            forward_stack.pop()
+        while not self.forward_stack.is_empty():
+            self.forward_stack.pop()
 
     def back(self):
         if self.back_stack.is_empty():

@@ -27,6 +27,9 @@ class Stack:
     def size(self):
         return len(self.stack_)
 
+    def __str__(self):
+        return f"{self.stack_}"
+
 
 
 if __name__ == "__main__":

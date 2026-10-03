@@ -24,7 +24,7 @@ def balance_brackets(text: str) -> bool:
 
     stack = Stack([])
 
-    for idx, b in enumerate(text):
+    for b in text:
         if b in combinations:
             stack.push(b)
         elif not stack.is_empty() and b == combinations[stack.peek()]:

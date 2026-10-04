@@ -1,5 +1,22 @@
 from stack import Stack
 
+'''
+
+    Build browser navigation — Medium
+    Create a BrowserHistory class using two stacks. Start on "Home" and implement visit(page), back(), forward() and current().
+    Visiting a new page must clear the forward history. If there is nowhere to go back or forward, keep the current page unchanged.
+    Check this sequence:
+    Action	Current page
+    Visit "Python"	"Python"
+    Visit "Stacks"	"Stacks"
+    Back	"Python"
+    Forward	"Stacks"
+    Back, then visit "Queues"	"Queues"
+    Forward	"Queues"
+
+'''
+
+
 class BrowserHistory:
 
     def __init__(self, back_stack: Stack = Stack([]), forward_stack: Stack = Stack([])):
@@ -37,37 +54,6 @@ if __name__ == "__main__":
     forward_stack = Stack([])
     history = BrowserHistory(backward_stack, forward_stack)
 
-    # print(history.current())
-
-    # history.forward()
-    # print(history.current())
-
-    # history.visit("About")
-    # print(history.current())
-
-    # print()
-
-    
-    # history.forward()
-    # print(history.current())
-    # print(backward_stack)
-    # print(forward_stack)
-
-
-    # print()
-
-    # history.back()
-    # print(history.current())
-    # print(backward_stack)
-    # print(forward_stack)
-
-    # print()
-    # print("Visit Contact page")
-
-    # history.visit("Contact_page")
-    # print(history.current())
-    # print(backward_stack)
-    # print(forward_stack)
 
     print(history.current())
 

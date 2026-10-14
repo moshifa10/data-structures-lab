@@ -56,8 +56,6 @@ if __name__ == "__main__":
 
 
     print(history.current())
-
-
     print()
     print("Visit About\n")
 

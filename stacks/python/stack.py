@@ -36,6 +36,7 @@ if __name__ == "__main__":
     my_list = ["Njabs", "Busa", "Stha"]
     my_stack = Stack(stack=my_list)
 
+
     print(my_stack.pop())
     print(my_stack.size())
     print(my_stack.peek())

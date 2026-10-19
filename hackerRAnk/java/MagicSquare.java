@@ -5,12 +5,12 @@ public class MagicSquare {
 
 
     public static void main(String[] args) {
-        
-        List<List<Integer>> matrix = List.of(
-            List.of(5, 3, 4),
-            List.of(1, 5, 8),
-            List.of(6, 4, 2)
-        );
+
+        List<List<Integer>> matrix = new ArrayList<>(List.of(
+                new ArrayList<>(List.of(5, 3, 4)),
+                new ArrayList<>(List.of(1, 5, 8)),
+                new ArrayList<>(List.of(6, 4, 2))
+        ));
 
         int results = MagicSquare.formingMagicSquare(matrix);
 
@@ -22,7 +22,7 @@ public class MagicSquare {
 
 
         int sumConstant = 15;
-        List<List<Integer>> seenColoumns = new ArrayList<>();
+        List<List<Integer>> seenColumns = new ArrayList<>();
 
         for (int i = 0; i<s.size(); i++){
 
@@ -31,7 +31,6 @@ public class MagicSquare {
                 continue;
             }
             for (int j = 0; j<s.size(); j++){
-                
                 // Check vertical
                 int start = 0;
                 int sum = 0;
@@ -41,14 +40,13 @@ public class MagicSquare {
                 }
 
                 if (sum == sumConstant){
-                    break;
+                    continue;
                 }
 
                 // Check diagonal
                 
                 if (j == 0 || j==2 || (j==1 && i == 1)) {
-
-                    if ((j==0 && i==0) || (i==2 && j==2) || (i==1)){
+                    if ((j==0 && i==0) || (i==2 && j==2) ){
                         start = 0;
                         sum = 0;
                         while (start< 3) {
@@ -60,7 +58,7 @@ public class MagicSquare {
                         }
                     }
 
-                    else if ((j==2 && i==0)  ||  (j==0 && i == 2) || (i==1)){
+                    else if ((j==2 && i==0)  ||  (j==0 && i == 2) ){
                         start = 2;
                         sum = 0;
                         while (start > -1) {
@@ -69,33 +67,59 @@ public class MagicSquare {
                         }
 
                         if (sum == 15) {
-                            break;
+                            continue;
+                        }
+                    } else if ((i==1 && j==i)) {
+                        start = 0;
+                        sum = 0;
+
+                        while (start< 3) {
+                            sum += s.get(start).get(start);
+                            start++;
+                        }
+                        if (sum==15) {
+                            continue;
+                        }
+
+                        start = 2;
+                        sum = 0;
+                        while (start > -1) {
+                            sum += s.get(start).get(start);
+                            start--;
+                        }
+
+                        if (sum == 15) {
+                            continue;
                         }
                     }
 
                 }
+                // Pick the row to get the sum of the numbers
 
-
-                System.out.println("Couldn't find sum of 15 in the digonal and vertical and horizontal");
-
-                // Pick the row to get the sum of the numbers 
-
+                if (sumEqualsConstant(s.get(i))) {
+                    break;
+                }
                 int difference = rowDifference(s.get(i), j);
-
+                seenColumns.add(List.of(s.get(i).get(j), difference));
                 s.get(i).set(j, difference);
-                seenColoumns.add(List.of(s.get(i).get(j), difference));
+
 
             }
         }
+        return cost(seenColumns);
+    }
 
-        System.out.println(seenColoumns);
 
-        return 0;
+    public static int cost(List<List<Integer>> differenceCost){
+        int difference = 0;
+        for (int i = 0; i<differenceCost.size(); i++){
+            difference += differenceCost.get(i).get(0) - differenceCost.get(i).get(1);
+        }
+        return Math.abs(difference);
     }
 
 
     public static boolean sumEqualsConstant(List<Integer> row){
-
         int sum = 0;
         for (int i = 0; i<row.size(); i++){
             sum += row.get(i);
@@ -104,19 +128,14 @@ public class MagicSquare {
     }
 
     public static int rowDifference(List<Integer> row, int column){
-        // return the differennce
+        // return the difference
         int sum = 0 ;
-
         for (int i = 0 ; i< row.size(); i++){
             if (i==column) {
                 continue;
             }
-
             sum += row.get(i);
         }
-
-
-
         return 15 - sum;
     }
 
